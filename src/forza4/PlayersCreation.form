@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="forza4.PlayersCreation">
+  <grid id="27dc6" binding="playersCreationPage" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-4867910"/>
+      <font name="Courier New" style="1"/>
+      <foreground color="-16777216"/>
+      <preferredSize width="500" height="250"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <hspacer id="fe594">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="992e3" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Courier New" style="1"/>
+          <foreground color="-16777216"/>
+          <horizontalAlignment value="0"/>
+          <text value="Inserisci i nomi dei giocatori:"/>
+        </properties>
+      </component>
+      <grid id="95d45" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-5723219"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="fde37" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Courier New" style="1"/>
+              <foreground color="-16777216"/>
+              <text value="Player 1:"/>
+            </properties>
+          </component>
+          <component id="28c1b" class="javax.swing.JTextField" binding="player1Name">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-7105645"/>
+              <caretColor color="-196614"/>
+              <disabledTextColor color="-7105645"/>
+              <foreground color="-196614"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="74840" class="javax.swing.JTextField" binding="player2Name">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-7105645"/>
+              <foreground color="-196614"/>
+            </properties>
+          </component>
+          <component id="6e878" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Courier New" style="1"/>
+              <foreground color="-16777216"/>
+              <text value="Player 2"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="f616e">
+        <constraints>
+          <grid row="0" column="3" row-span="7" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="ab392" class="javax.swing.JButton" binding="procediButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-7105645"/>
+          <font name="Courier New" style="1"/>
+          <foreground color="-591372"/>
+          <text value="Procedi "/>
+        </properties>
+      </component>
+      <component id="f09e5" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Courier New" style="1"/>
+          <foreground color="-16777216"/>
+          <horizontalAlignment value="0"/>
+          <text value="ATTENZIONE: Non sono ammessi nomi vuoti!"/>
+        </properties>
+      </component>
+      <hspacer id="8d4ee">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="7e49a" class="javax.swing.JLabel" binding="errorMessage">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Courier New" size="14" style="1"/>
+          <foreground color="-4517089"/>
+          <text value="ATTENZIONE I NOMI NON DEVONO ESSERE VUOTI"/>
+          <visible value="false"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
