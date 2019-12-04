@@ -42,7 +42,6 @@ public class InteractiveMatch {
     public HashMap<Integer,int[]> adjacentPositionsChecker(int row, int col) {
         HashMap<Integer,int[]> adjMap  = new HashMap<Integer, int[]>();
         int contatore = 1;
-        System.out.println(matr);
         for(int r = -1 ; r <= 1 ; r++) {
             int[] array_col = new int[3];
             for(int c = -1 ; c <= 1 ; c++) {
