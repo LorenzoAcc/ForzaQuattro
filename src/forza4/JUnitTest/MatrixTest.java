@@ -82,7 +82,6 @@ public class MatrixTest {
             }
         }
         int count = matrice.getNumDisk();
-        System.out.println(count);
         int stressingTestCount = new Random().nextInt(100000); // 5000...100000
         for (int i = 1; i <= stressingTestCount;i++){
             int colDelete = new Random().nextInt(6);
