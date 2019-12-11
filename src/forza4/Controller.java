@@ -3,6 +3,9 @@ package forza4;
 import javax.sound.midi.SysexMessage;
 
 public class Controller {
+    private Player p1;
+    private Player p2;
+
     public int onClick(int col, InteractiveMatch match) {
         System.out.println(col);
 

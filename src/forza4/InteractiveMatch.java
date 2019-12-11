@@ -1,4 +1,5 @@
 package forza4;
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -18,13 +19,14 @@ public class InteractiveMatch {
         if(this.p2 instanceof ComputerPlayer) {
             this.current_player=p1;
         }else {
-            HeadOrTail();
+            headOrTail();
         }
     }
     public int getIns(int col) {
-        Disk d = new Disk(current_player.getId());
+        Disk d = new Disk(getCurrentPlayer().getId());
         int insertRow = matr.insertDisk(d, col);
         return insertRow;
+
     }
 
     public boolean checkWin(int row , int col) {
@@ -243,19 +245,37 @@ public class InteractiveMatch {
         return false;
 
     }
-    public void HeadOrTail() {
+
+    public Player headOrTail() {
         Random r = new Random();
-        if(r.nextInt(2)+1==p1.getId())
+        if(r.nextInt(2)+1==p1.getId()){
             current_player=p1;
-        else
-            current_player=p2;
+            return p1;
+        }
+        current_player=p2;
+        return p2;
+
 
     }
+
+    /*
+    public void headOrTail() {
+        Random r = new Random();
+        if(r.nextInt(2)+1==p1.getId()){
+            current_player=p1;
+            //return p1;
+        }
+        else{
+            current_player=p2;
+        }
+    }
+    */
     public Matrix getMatrix() {
         // TODO Auto-generated method stub
         return this.matr;
     }
     public Player getCurrentPlayer() {
+
         return current_player;
     }
 
@@ -267,11 +287,14 @@ public class InteractiveMatch {
 
 
     //metodo relativo al cambio di turno
-    protected void updateCurrentPlayer() {
-        if(current_player.equals(p1))
-            this.current_player=p2;
-        else
-            this.current_player=p1;
+    public void updateCurrentPlayer() {
+        if(current_player.equals(p1)){
+            current_player=p2;
+        }
+        else{
+            current_player=p1;
+        }
     }
+
 
 }
