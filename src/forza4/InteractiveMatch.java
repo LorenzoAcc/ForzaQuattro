@@ -138,9 +138,8 @@ public class InteractiveMatch {
             increaseIndex++;
             pawnCounterInColumn++;
         }
-        if(pawnCounterInColumn==4) {
-            return true;
-        }else {
+        if(pawnCounterInColumn==4)  return true;
+        else {
             int oppositeIndex = 2; //indice della riga sotto la mossa
             while(matr.checkPositionValidity((adj_row+(oppositeIndex*indx_adj_row)),adj_col) &&
                     checkColor((adj_row+(oppositeIndex*indx_adj_row)),adj_col) && pawnCounterInColumn<4) {
@@ -149,10 +148,6 @@ public class InteractiveMatch {
             }
         }
         if(pawnCounterInColumn==4)  return true;
-
-        /*else {
-            return false;
-        }*/
         return false;
     }
     public boolean checkRow(int adj_row, int adj_col) {

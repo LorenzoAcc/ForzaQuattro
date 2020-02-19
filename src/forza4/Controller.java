@@ -3,9 +3,13 @@ package forza4;
 import javax.sound.midi.SysexMessage;
 
 public class Controller {
-    private Player p1;
-    private Player p2;
-
+    private InteractiveMatch match;
+    private ComputerPlayer computerPlayer;
+    public Controller(InteractiveMatch match , ComputerPlayer computerPlayer){
+        this.match = match;
+        this.computerPlayer = computerPlayer;
+    }
+    /*
     public int onClick(int col, InteractiveMatch match) {
         System.out.println(col);
 
@@ -37,4 +41,26 @@ public class Controller {
         }
         match.updateCurrentPlayer();
     }
+    */
+    public int move(InteractiveMatch match , int col){
+        int row = match.getIns(col);
+        if(row==6) return 0;
+        if(match.checkWin(row , col)) return 1;
+        return -1;
+    }
+
+    public boolean computerMove(ComputerPlayer computerPlayer){
+        boolean alert = false;
+        while (!alert) {
+            int columnComputerMove = computerPlayer.move();
+            System.out.println(columnComputerMove);
+            int rowComputerMove = match.getIns(columnComputerMove);
+            if (rowComputerMove != 6) {
+                alert = true;
+                return match.checkWin(rowComputerMove, columnComputerMove);
+            }
+        }
+    return false;
+    }
+
 }

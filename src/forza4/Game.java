@@ -12,13 +12,13 @@ public class Game {
     private JPanel gamePage;
     private InteractivePlayer player1;
     private InteractivePlayer player2;
-    private InteractiveMatch match;
+    private InteractiveMatch match ;
     private ComputerPlayer computer;
     private Matrix matr;
     private JFrame frame = new JFrame();
     private JTextPane TextP = new JTextPane();
     private JButton[] btn;
-    private Controller controller;
+    private Controller controller = new Controller(match,computer);
 
 
     Game(String nome1, String nome2) {
@@ -127,18 +127,6 @@ public class Game {
         PanelDisplay();
         gamePage.revalidate();
     }
-    /*
-    private void ActionList() {
-        btn[0].addActionListener(e->onClick(0));
-        btn[1].addActionListener(e->onClick(1));
-        btn[2].addActionListener(e->onClick(2));
-        btn[3].addActionListener(e->onClick(3));
-        btn[4].addActionListener(e->onClick(4));
-        btn[5].addActionListener(e->onClick(5));
-        btn[6].addActionListener(e->onClick(6));
-    }
-    */
-
 
     private void ActionList() {
         btn[0].addActionListener(e->onClick(0));
@@ -197,6 +185,28 @@ public class Game {
 
     }
 
+    /*
+    private void onClick( int col){
+
+        int moveMade = controller.move(match,col);
+        updateGamePage();
+        switch (moveMade){
+            case 0:
+                JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA "+(col+1)+" E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");
+                break;
+            case 1:
+                winFrame(match.getCurrentPlayer().getName()+" WIN");
+                break;
+        }
+        match.updateCurrentPlayer();
+
+        if (computer != null && controller.computerMove(computer)) {
+            updateGamePage();
+            winFrame(match.getCurrentPlayer().getName()+" WIN");
+        }
+
+    }
+    */
 
     private boolean Check(int row, int col){
 
@@ -205,6 +215,14 @@ public class Game {
         //win(row,col);
         Full();
         return win(row,col);
+    }
+
+    private void updateGamePage(){
+
+        updatePanel();
+        TurnSetterText();
+        Full();
+
     }
 
 
