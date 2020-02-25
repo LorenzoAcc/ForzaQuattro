@@ -1,10 +1,10 @@
 package forza4;
-import java.sql.SQLOutput;
+
 import java.util.HashMap;
 import java.util.Random;
 
 
-public class InteractiveMatch {
+public class InteractiveMatch implements Match{
     private final Player p1;
     private final Player p2;
     private Player current_player;
@@ -24,8 +24,7 @@ public class InteractiveMatch {
     }
     public int getIns(int col) {
         Disk d = new Disk(getCurrentPlayer().getId());
-        int insertRow = matr.insertDisk(d, col);
-        return insertRow;
+        return matr.insertDisk(d, col);
 
     }
 
@@ -37,20 +36,18 @@ public class InteractiveMatch {
         HashMap<Integer, int[]> adj_pos = adjacentPositionsChecker(ACTUAL_ROW,ACTUAL_COLUMN);
         // incapsulo il risultato del controllo della mossa vincente nella variabile responce → se è true allora la partita è finita
         int responce = checkLines(adj_pos); //1 se c'è una mossa vincente
-        if(responce!=0) return true;
-        return false;
+        return responce != 0;
     }
+
     //Quando richiamiamo la funzione il parametro row è checkInsertion(col)
-    public HashMap<Integer,int[]> adjacentPositionsChecker(int row, int col) {
-        HashMap<Integer,int[]> adjMap  = new HashMap<Integer, int[]>();
-        int contatore = 1;
+    private HashMap<Integer,int[]> adjacentPositionsChecker(int row, int col) {
+        HashMap<Integer,int[]> adjMap  = new HashMap<>();
+
+
         for(int r = -1 ; r <= 1 ; r++) {
-            int[] array_col = new int[3];
             for(int c = -1 ; c <= 1 ; c++) {
                 int adj_row = row+(r);
                 int adj_col = col+(c);
-                contatore= ++contatore;
-
                 if(matr.checkPositionValidity(adj_row, adj_col)
                         && !(adj_row== row && adj_col== col)){
                             Disk adj_disk = matr.getElem(adj_row,adj_col);
@@ -72,19 +69,20 @@ public class InteractiveMatch {
                 }
             }
         }
+
         return adjMap;
 
     }
 
 
     //metodo che controla se le pos. adj della
-    public int checkLines(HashMap<Integer,int[]> adj_pos ) {
+    private int checkLines(HashMap<Integer, int[]> adj_pos) {
         int win = 0 ;
         //scorro l'hashmap, k che è la chiave corrisponde all'indice della colonna
         // quindi va da 1 a 6
         for(int k = 0; k<6; k++) {
             //vedo se la riga esiste
-            boolean responce = adj_pos.containsKey(k);
+            //boolean responce = adj_pos.containsKey(k);
 
             if(adj_pos.containsKey(k)) {
                 // salvo le colonne occupare della riga in un array
@@ -101,89 +99,74 @@ public class InteractiveMatch {
         return win;
     }
 
-    public boolean checkLineFromAdjacentPosition(int row_adj , int col_adj ) {
+    private boolean checkLineFromAdjacentPosition(int row_adj, int col_adj) {
         //variabili per determinare la linea da controllare sulla base della relazione della
         //pedina adiacente con quella inserita
 
         //Indici della posizione della pedina adiacente presi come -1/0/+1
-        boolean answer = false;
-        if(col_adj==ACTUAL_COLUMN) {
-            answer = checkColumn(row_adj,col_adj);
-            //if(answer) return answer;
-            return answer;
-        }
-        if(row_adj==ACTUAL_ROW) {
-            answer = checkRow(row_adj,col_adj);
-            //if(answer) return answer;
-            return answer;
-        }
+        //boolean answer = false;
+        if(col_adj==ACTUAL_COLUMN) return checkColumn(row_adj,col_adj);
+
+        if(row_adj==ACTUAL_ROW) return  checkRow(row_adj,col_adj);
+
         //L'indice della colonna o della riga adiacente è uguale a quello della posizione solo se sono adicenti
         //In verticale oppure in orizzontale
-        if(row_adj!=ACTUAL_ROW && col_adj!=ACTUAL_COLUMN) {
-            answer = checkDiagonal(row_adj,col_adj);
-            //if(answer) return answer;
-            return answer;
-        }
+        if(row_adj!=ACTUAL_ROW && col_adj!=ACTUAL_COLUMN) return checkDiagonal(row_adj,col_adj);
 
         return false;
     }
 
-    public boolean checkColumn(int adj_row, int adj_col) {
+    private boolean checkColumn(int adj_row, int adj_col) {
         int increaseIndex = 1;
         int pawnCounterInColumn = 2;
-        int indx_adj_row = adj_row - ACTUAL_ROW ;
+        int indx_nxt_row = adj_row - ACTUAL_ROW ;
         //controllo
-        while(matr.checkPositionValidity((adj_row+(increaseIndex*indx_adj_row)),adj_col) &&
-                checkColor((adj_row+(increaseIndex*indx_adj_row)),adj_col) && pawnCounterInColumn<4) {
+        while(matr.checkPositionValidity((adj_row+(increaseIndex*indx_nxt_row)),adj_col) &&
+                checkColor((adj_row+(increaseIndex*indx_nxt_row)),adj_col) && pawnCounterInColumn<4) {
             increaseIndex++;
             pawnCounterInColumn++;
+
         }
-        if(pawnCounterInColumn==4)  return true;
-        else {
-            int oppositeIndex = 2; //indice della riga sotto la mossa
-            while(matr.checkPositionValidity((adj_row+(oppositeIndex*indx_adj_row)),adj_col) &&
-                    checkColor((adj_row+(oppositeIndex*indx_adj_row)),adj_col) && pawnCounterInColumn<4) {
-                oppositeIndex++;
-                pawnCounterInColumn++;
-            }
-        }
-        if(pawnCounterInColumn==4)  return true;
-        return false;
+        return pawnCounterInColumn == 4;
+
     }
-    public boolean checkRow(int adj_row, int adj_col) {
-        int indx_adj_col = adj_col - ACTUAL_COLUMN ;
+    private boolean checkRow(int adj_row, int adj_col) {
+
+
+        int indx_nxt_col = adj_col - ACTUAL_COLUMN ;
         int increaseIndex = 1;
         int pawnCounterInRow = 2;
 
-        while(matr.checkPositionValidity(adj_row,(adj_col+(increaseIndex*indx_adj_col))) &&
-                checkColor(adj_row,adj_col+(increaseIndex*indx_adj_col)) &&
-                pawnCounterInRow<4 && (adj_col+(increaseIndex*indx_adj_col))!=ACTUAL_COLUMN ) {
+        while(matr.checkPositionValidity(adj_row,(adj_col+(increaseIndex*indx_nxt_col))) &&
+                checkColor(adj_row,adj_col+(increaseIndex*indx_nxt_col)) &&
+                pawnCounterInRow<4 && (adj_col+(increaseIndex*indx_nxt_col))!=ACTUAL_COLUMN ) {
+
             increaseIndex++;
             pawnCounterInRow++;
+
+
+
 
         }
         if(pawnCounterInRow==4) {
             return true;
         }
         else {
-            indx_adj_col = indx_adj_col*-1;
-            int oppositeIndex = 2;
-
-            while(matr.checkPositionValidity(adj_row,(adj_col+(oppositeIndex*indx_adj_col)))
-                    && checkColor(adj_row,(adj_row+(oppositeIndex*indx_adj_col)))
-                    && pawnCounterInRow<4 && (adj_col+(increaseIndex*indx_adj_col))!=ACTUAL_COLUMN) {
-
+            indx_nxt_col = indx_nxt_col*-1;
+            int oppositeIndex = 1;
+            //L'INDICE -1 SERVE A RIPOSIZIONARE IL PUNTATORE SULLA POSIZIONE OPPOSTA ALLA POSIZIONE ATTUALE
+            while(matr.checkPositionValidity(adj_row,(ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col)))
+                    && checkColor(adj_row,(ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col)))
+                    && pawnCounterInRow<4 && (ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col))!=ACTUAL_COLUMN) {
                 oppositeIndex++;
                 pawnCounterInRow++;
             }
 
         }
-        if(pawnCounterInRow==4) return true;
-
-        return false;
+        return pawnCounterInRow == 4;
 
     }
-    public boolean checkDiagonal(int adj_row, int adj_col) {
+    private boolean checkDiagonal(int adj_row, int adj_col) {
         //il counter è relativo alle pedine già in linea e parte da 2 perchè si ha quella inserita e quella adiacente
         int increaseIndex = 1;
         int pawnCounterInDiagonal=2;
@@ -191,6 +174,9 @@ public class InteractiveMatch {
         //Indici della posizione della pedina adiacente presi come -1/0/+1
         int indx_adj_row = adj_row - ACTUAL_ROW ;
         int indx_adj_col = adj_col - ACTUAL_COLUMN ;
+
+
+
 
         while(matr.checkPositionValidity(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
                 && checkColor(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
@@ -212,17 +198,16 @@ public class InteractiveMatch {
                 increaseIndex++;
                 pawnCounterInDiagonal++;
 
+
             }
 
         }
-        if(pawnCounterInDiagonal==4)
-            return true;
-        else return false;
+        return pawnCounterInDiagonal == 4;
     }
 
 
     //Utilizza parametri matriciali quindi la prima posizione è [0,0]
-    public boolean checkColor(int row , int col) {
+    private boolean checkColor(int row, int col) {
         if(matr.checkPositionValidity(row, col)) {
             Disk D=matr.getElem(row, col);
             if(D==null) {
@@ -231,11 +216,9 @@ public class InteractiveMatch {
             else {
                 int id=D.getPlayer();
 
-                if(id==current_player.getId())
-                    return true;
+                return id == current_player.getId();
 
             }
-            return false;
         }
         return false;
 
@@ -253,18 +236,6 @@ public class InteractiveMatch {
 
     }
 
-    /*
-    public void headOrTail() {
-        Random r = new Random();
-        if(r.nextInt(2)+1==p1.getId()){
-            current_player=p1;
-            //return p1;
-        }
-        else{
-            current_player=p2;
-        }
-    }
-    */
     public Matrix getMatrix() {
         // TODO Auto-generated method stub
         return this.matr;
@@ -275,9 +246,7 @@ public class InteractiveMatch {
     }
 
     public boolean isFull() {
-        if(matr.getNumDisk()==42)
-            return true;
-        return false;
+        return matr.getNumDisk() == 42;
     }
 
 

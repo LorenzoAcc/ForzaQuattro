@@ -1,14 +1,10 @@
 package forza4;
 
-//import org.w3c.dom.Text;
-
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.util.concurrent.ExecutionException;
 
-public class Game {
+
+class Game {
     private JPanel gamePage;
     private InteractivePlayer player1;
     private InteractivePlayer player2;
@@ -18,7 +14,7 @@ public class Game {
     private JFrame frame = new JFrame();
     private JTextPane TextP = new JTextPane();
     private JButton[] btn;
-    private Controller controller = new Controller(match,computer);
+    private Controller controller = new Controller(match);
 
 
     Game(String nome1, String nome2) {
@@ -112,17 +108,17 @@ public class Game {
         }
         TurnSetterText();
     }
-    public void TurnSetterText(){
+    private void TurnSetterText(){
         Player P = match.getCurrentPlayer();
         if(P.equals(player1))
-            TextP.setText("Turn → "+player1.getName());
+            TextP.setText("                             E' il turno di → "+player1.getName());
         else if(P.equals(player2))
-            TextP.setText("Turn → "+player2.getName());
+            TextP.setText("                             E' il turno di → "+player2.getName());
         else
-            TextP.setText("");
+            TextP.setText("                             Turn → COMPUTER PLAYER");
     }
 
-    public void updatePanel(){
+    private void updatePanel(){
         gamePage.removeAll();
         PanelDisplay();
         gamePage.revalidate();
@@ -137,84 +133,45 @@ public class Game {
         btn[5].addActionListener(e->onClick(5));
         btn[6].addActionListener(e->onClick(6));
     }
-    /*
-    private void onClick(int col){
-        System.out.println(col);
 
-        int row = controller.onClick(col,match);
-        if(row!=6){
-            if(controller.check(row,col,match)){
-                updatePanel();
-                TurnSetterText();
-                Full();
-                winFrame(match.getCurrentPlayer().getName()+" WIN");
-            }
-            else if(computer!=null){
-                controller.computerMove(match,computer);
-            }
 
-        }else{
-            JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA "+(col+1)+" E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");
-        }
-    }
-    */
-
-    private void onClick(int col){
-        int row = match.getIns(col);
-        if (row != 6){
-            if(!Check(row, col)) {
-                match.updateCurrentPlayer();
-                if (computer != null) {
-                    boolean alert = false;
-                    while (!alert) {
-                        int columnComputerMove = computer.move();
-                        int rowComputerMove = match.getIns(columnComputerMove);
-                        if (rowComputerMove != 6) {
-                            alert = true;
-                            Check(rowComputerMove, columnComputerMove);
-                        }
-                    }
+    private void onClick( int col){
+        System.out.println("E' il turno del giocatore umano");
+        System.out.println("Il giocatore corrente è"+match.getCurrentPlayer().getId());
+        //Intero che descrive la mossa fatta
+        int moveMade = controller.move(match,col);
+        updateGamePage();
+        showAller(moveMade);
+        //Caso in cui la colonna non è piena si prosegue
+        if(moveMade!=0){
+            match.updateCurrentPlayer();
+            updateGamePage();
+            if (computer != null) {
+                if(controller.computerMove(match,computer)) {
+                    updateGamePage();
+                    winFrame(match.getCurrentPlayer().getName()+" WIN");
+                }else {
                     match.updateCurrentPlayer();
+                    updateGamePage();
                 }
 
             }
         }
-        else {
-            JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA "+(col+1)+" E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");
-        }
+
+
+
 
     }
-
-    /*
-    private void onClick( int col){
-
-        int moveMade = controller.move(match,col);
-        updateGamePage();
+    private void showAller(int moveMade){
         switch (moveMade){
+            case -1: break;
             case 0:
-                JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA "+(col+1)+" E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");
+                JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA SELEZIONATA E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");
                 break;
             case 1:
                 winFrame(match.getCurrentPlayer().getName()+" WIN");
                 break;
         }
-        match.updateCurrentPlayer();
-
-        if (computer != null && controller.computerMove(computer)) {
-            updateGamePage();
-            winFrame(match.getCurrentPlayer().getName()+" WIN");
-        }
-
-    }
-    */
-
-    private boolean Check(int row, int col){
-
-        updatePanel();
-        TurnSetterText();
-        //win(row,col);
-        Full();
-        return win(row,col);
     }
 
     private void updateGamePage(){
@@ -226,24 +183,14 @@ public class Game {
     }
 
 
-    public void Full(){
+    private void Full(){
         if(match.isFull())
             winFrame("PATTA");
     }
-    public void winFrame(String str){
+    private void winFrame(String str){
         JOptionPane.showMessageDialog(null, str);
         //frame.enable(false);
         frame.dispose();
-
-    }
-
-    private boolean win(int row, int col){
-        boolean responce = match.checkWin(row,col);
-        if (responce){
-            winFrame(match.getCurrentPlayer().getName()+" WIN");
-        }
-        return responce;
-
 
     }
 

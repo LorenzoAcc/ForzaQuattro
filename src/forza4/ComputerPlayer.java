@@ -28,6 +28,7 @@ public class ComputerPlayer implements Player {
     public int move() {
         Random rand = new Random();
         return rand.nextInt(7);
+
     }
 
 

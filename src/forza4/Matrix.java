@@ -22,12 +22,12 @@ public class Matrix {
                 NUM_DISK++;
                 return rowIndex-1;
             }
-            return DEFAULT_ROW; //significa che la colonna è vuota
+            return DEFAULT_ROW;
         }
 
         //Metodo che scorre la matrice dall'alto verso il basso relativamente ad una colonna
         //per cercare la prima casella occupata
-        public int checkInsertion(int col) {
+        private int checkInsertion(int col) {
             for(int r = 0; r < DEFAULT_ROW; r++) {
                 //L'if non ritorna r-1 nel caso in la colonna è piena → ritorna DEFAULT_ROW
                 if(this.field[r][col]!=null) {
@@ -68,20 +68,11 @@ public class Matrix {
         public void makeEmpty() {
             for (int i = 0; i <= 5; i++) {
                 for (int j = 0; j <= 6; j++) {
-
+                    field[i][j]=null;
                 }
             }
         }
-        public void printMatr(){
-            for (int i = 0;i!=6;i++){
-                for(int j = 0 ; j!=7; j++){
-                    System.out.println(field[i][j].getPlayer()+"    ");
-                }
-                System.out.println("\n");
-            }
 
-
-        }
 
     }
 
