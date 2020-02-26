@@ -136,8 +136,7 @@ class Game {
 
 
     private void onClick( int col){
-        System.out.println("E' il turno del giocatore umano");
-        System.out.println("Il giocatore corrente è"+match.getCurrentPlayer().getId());
+
         //Intero che descrive la mossa fatta
         int moveMade = controller.move(match,col);
         updateGamePage();
