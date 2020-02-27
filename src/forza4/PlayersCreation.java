@@ -1,5 +1,7 @@
 package forza4;
 
+import forza4.View.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

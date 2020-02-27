@@ -1,4 +1,4 @@
-package forza4;
+package forza4.Model;
 
 public class Matrix {
         // Fields

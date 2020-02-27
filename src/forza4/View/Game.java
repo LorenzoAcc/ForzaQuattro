@@ -1,7 +1,10 @@
-package forza4;
+package forza4.View;
 
+import forza4.Controller.Controller;
+import forza4.Model.*;
 import javax.swing.*;
 import java.awt.*;
+
 
 
 class Game {

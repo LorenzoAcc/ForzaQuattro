@@ -1,22 +1,24 @@
-package forza4;
+package forza4.Controller;
 
 
+import forza4.Model.ComputerPlayer;
+import forza4.Model.InteractiveMatch;
 
-class Controller {
+public class Controller {
     private InteractiveMatch match;
     //public ComputerPlayer computerPlayer;
-    Controller(InteractiveMatch match){
+    public Controller(InteractiveMatch match){
         this.match = match;
     }
 
-    int move(InteractiveMatch match, int col){
+    public int move(InteractiveMatch match, int col){
         int row = match.getIns(col);
         if(row==6) return 0;
         if(match.checkWin(row , col)) return 1;
         return -1;
     }
 
-    boolean computerMove(InteractiveMatch match, ComputerPlayer computerPlayer){
+    public boolean computerMove(InteractiveMatch match, ComputerPlayer computerPlayer){
         int count = 1;
         int columnComputerMove;
         int rowComputerMove;

@@ -1,4 +1,6 @@
-package forza4;
+package forza4.Model;
+
+import forza4.StartingPage;
 
 import javax.swing.*;
 import java.awt.*;

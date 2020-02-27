@@ -1,4 +1,4 @@
-package forza4;
+package forza4.Model;
 
 public interface Player {
     int getId();	//getter dell'id
