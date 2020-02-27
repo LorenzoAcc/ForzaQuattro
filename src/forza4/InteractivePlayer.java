@@ -1,4 +1,4 @@
-package forza4.Model;
+package forza4;
 
 public class InteractivePlayer implements Player {
     //Fields

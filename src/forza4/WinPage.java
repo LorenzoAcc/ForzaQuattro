@@ -1,7 +1,5 @@
 package forza4;
 
-import forza4.Model.InteractiveMatch;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

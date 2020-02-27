@@ -1,7 +1,5 @@
 package forza4;
 
-import forza4.View.Game;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;

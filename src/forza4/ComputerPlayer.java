@@ -1,4 +1,4 @@
-package forza4.Model;
+package forza4;
 
 import java.util.Random;
 

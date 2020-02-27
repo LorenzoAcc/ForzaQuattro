@@ -1,8 +1,4 @@
-package forza4.Controller;
-
-
-import forza4.Model.ComputerPlayer;
-import forza4.Model.InteractiveMatch;
+package forza4;
 
 public class Controller {
     private InteractiveMatch match;
@@ -19,14 +15,12 @@ public class Controller {
     }
 
     public boolean computerMove(InteractiveMatch match, ComputerPlayer computerPlayer){
-        int count = 1;
+
         int columnComputerMove;
         int rowComputerMove;
         do {
-            System.out.println("CONTATORE" + count);
             columnComputerMove = computerPlayer.move();
             rowComputerMove = match.getIns(columnComputerMove);
-            count++;
         } while (rowComputerMove == 6);
         return match.checkWin(rowComputerMove,columnComputerMove);
 

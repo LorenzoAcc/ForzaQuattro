@@ -1,10 +1,10 @@
-package forza4.Model;
+package forza4;
 
 import java.util.HashMap;
 import java.util.Random;
 
 
-public class InteractiveMatch implements Match{
+public class InteractiveMatch implements Match {
     private final Player p1;
     private final Player p2;
     private Player current_player;

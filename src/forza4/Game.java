@@ -1,13 +1,12 @@
-package forza4.View;
+package forza4;
 
-import forza4.Controller.Controller;
-import forza4.Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 
-class Game {
+public class Game {
     private JPanel gamePage;
     private InteractivePlayer player1;
     private InteractivePlayer player2;
@@ -20,7 +19,7 @@ class Game {
     private Controller controller = new Controller(match);
 
 
-    Game(String nome1, String nome2) {
+    public Game(String nome1, String nome2) {
         this.player1 = new InteractivePlayer(nome1, 1);
         this.player2 = new InteractivePlayer(nome2, 2);
         this.match = new InteractiveMatch(player1, player2);
@@ -30,7 +29,7 @@ class Game {
 
     }
 
-    Game(String nome1) {
+    public Game(String nome1) {
         this.player1 = new InteractivePlayer(nome1, 1);
         this.computer = new ComputerPlayer("Computer", 2);
         this.match = new InteractiveMatch(player1, computer);
@@ -143,7 +142,7 @@ class Game {
         //Intero che descrive la mossa fatta
         int moveMade = controller.move(match,col);
         updateGamePage();
-        showAller(moveMade);
+        showAllert(moveMade);
         //Caso in cui la colonna non è piena si prosegue
         if(moveMade!=0){
             match.updateCurrentPlayer();
@@ -164,7 +163,7 @@ class Game {
 
 
     }
-    private void showAller(int moveMade){
+    private void showAllert(int moveMade){
         switch (moveMade){
             case -1: break;
             case 0:
