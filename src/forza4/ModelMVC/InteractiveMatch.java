@@ -1,3 +1,7 @@
+/*
+Created by L.Acciarri
+and D. Rosati
+ */
 package forza4.ModelMVC;
 
 import java.util.HashMap;
@@ -27,19 +31,20 @@ public class InteractiveMatch implements Match {
         return matr.insertDisk(d, col);
 
     }
-
+    //Metodo che verifica la vittoria in una data posizione
     public boolean checkWin(int row , int col) {
         // TODO Auto-generated method stub
         ACTUAL_ROW = row;
         ACTUAL_COLUMN = col;
 
+        //HashMap contenente le posizioni delle pedine adiacenti
         HashMap<Integer, int[]> adj_pos = adjacentPositionsChecker(ACTUAL_ROW,ACTUAL_COLUMN);
-        // incapsulo il risultato del controllo della mossa vincente nella variabile responce → se è true allora la partita è finita
+
         if(getAdiacentPositionWin(adj_pos)) return true;
         return false;
     }
 
-    //Quando richiamiamo la funzione il parametro row è checkInsertion(col)
+    //Metodo per la creazione dell'HashMap contenente le posizioni adiacenti
     private HashMap<Integer,int[]> adjacentPositionsChecker(int row, int col) {
         HashMap<Integer,int[]> adjMap  = new HashMap<>();
 
@@ -69,20 +74,16 @@ public class InteractiveMatch implements Match {
                 }
             }
         }
-
         return adjMap;
 
     }
 
 
-    //metodo che controla se le pos. adj della
+    //Metodo che controlla determina se la mossa effettuata in relazione alle pedine adiacenti sia vincente
     private boolean getAdiacentPositionWin(HashMap<Integer, int[]> adj_pos) {
         //scorro l'hashmap, k che è la chiave corrisponde all'indice della colonna
-        // quindi va da 1 a 6
         for(int k = 0; k<6; k++) {
             //vedo se la riga esiste
-            //boolean responce = adj_pos.containsKey(k);
-
             if(adj_pos.containsKey(k)) {
                 // salvo le colonne occupare della riga in un array
                 int[] pos_in_the_row = adj_pos.get(k);
@@ -97,28 +98,27 @@ public class InteractiveMatch implements Match {
 
         return false;
     }
-
+    //Metodo che determina quale controllo deve essere fatto conoscendo la posizione della pedina inserita e di quella adiacete
     private boolean checkLineFromAdjacentPosition(int row_adj, int col_adj) {
         //variabili per determinare la linea da controllare sulla base della relazione della
         //pedina adiacente con quella inserita
 
-        //Indici della posizione della pedina adiacente presi come -1/0/+1
         if(col_adj==ACTUAL_COLUMN) return checkColumn(row_adj,col_adj);
 
         if(row_adj==ACTUAL_ROW) return  checkRow(row_adj,col_adj);
 
-        //L'indice della colonna o della riga adiacente è uguale a quello della posizione solo se sono adicenti
-        //In verticale oppure in orizzontale
         if(row_adj!=ACTUAL_ROW && col_adj!=ACTUAL_COLUMN) return checkDiagonal(row_adj,col_adj);
 
         return false;
     }
 
+    //Metodo che controlla se la pedina inserita con quella adiacente che si stà studiando porti ad una vittoria sulla linea verticale
     private boolean checkColumn(int adj_row, int adj_col) {
-        int increaseIndex = 1;
-        int pawnCounterInColumn = 2;
+
         int indx_nxt_row = adj_row - ACTUAL_ROW ;
-        //controllo
+        int pawnCounterInColumn = 2;
+        int increaseIndex = 1;
+
         while(matr.checkPositionValidity((adj_row+(increaseIndex*indx_nxt_row)),adj_col) &&
                 checkColor((adj_row+(increaseIndex*indx_nxt_row)),adj_col) && pawnCounterInColumn<4) {
             increaseIndex++;
@@ -126,14 +126,13 @@ public class InteractiveMatch implements Match {
 
         }
         return pawnCounterInColumn == 4;
-
     }
+    //Metodo che controlla se la pedina inserita con quella adiacente che si stà studiando porti ad una vittoria sulla linea orizzontale
     private boolean checkRow(int adj_row, int adj_col) {
 
-
         int indx_nxt_col = adj_col - ACTUAL_COLUMN ;
-        int increaseIndex = 1;
         int pawnCounterInRow = 2;
+        int increaseIndex = 1;
 
         while(matr.checkPositionValidity(adj_row,(adj_col+(increaseIndex*indx_nxt_col))) &&
                 checkColor(adj_row,adj_col+(increaseIndex*indx_nxt_col)) &&
@@ -148,7 +147,7 @@ public class InteractiveMatch implements Match {
         else {
             indx_nxt_col = indx_nxt_col*-1;
             int oppositeIndex = 1;
-            //L'INDICE -1 SERVE A RIPOSIZIONARE IL PUNTATORE SULLA POSIZIONE OPPOSTA ALLA POSIZIONE ATTUALE
+
             while(matr.checkPositionValidity(adj_row,(ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col)))
                     && checkColor(adj_row,(ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col)))
                     && pawnCounterInRow<4 && (ACTUAL_COLUMN+(oppositeIndex*indx_nxt_col))!=ACTUAL_COLUMN) {
@@ -160,25 +159,18 @@ public class InteractiveMatch implements Match {
         return pawnCounterInRow == 4;
 
     }
-    private boolean checkDiagonal(int adj_row, int adj_col) {
-        //il counter è relativo alle pedine già in linea e parte da 2 perchè si ha quella inserita e quella adiacente
-        int increaseIndex = 1;
-        int pawnCounterInDiagonal=2;
 
-        //Indici della posizione della pedina adiacente presi come -1/+1
+    //Metodo che controlla se la pedina inserita con quella adiacente che si stà studiando porti ad una vittoria sulla linea diagonale
+    private boolean checkDiagonal(int adj_row, int adj_col) {
+
         int indx_adj_row = adj_row - ACTUAL_ROW ;
         int indx_adj_col = adj_col - ACTUAL_COLUMN ;
+        int pawnCounterInDiagonal=2;
+
+        int increaseIndex = 1;
 
 
-
-
-        while(matr.checkPositionValidity(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
-                && checkColor(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
-                && pawnCounterInDiagonal<4 ) {
-            increaseIndex++;
-            pawnCounterInDiagonal++;
-
-        }
+        pawnCounterInDiagonal = getPawnCounterInDiagonal(adj_row, adj_col, indx_adj_row, indx_adj_col, pawnCounterInDiagonal, increaseIndex);
         if(pawnCounterInDiagonal==4) {
             return true;
         }else {
@@ -186,21 +178,26 @@ public class InteractiveMatch implements Match {
             //cambio il verso del controllo
             indx_adj_row = indx_adj_row*-1;
             indx_adj_col = indx_adj_col*-1;
-            while(matr.checkPositionValidity(adj_row +(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
-                    && checkColor(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
-                    && pawnCounterInDiagonal<4 ) {
-                increaseIndex++;
-                pawnCounterInDiagonal++;
-
-
-            }
+            pawnCounterInDiagonal = getPawnCounterInDiagonal(adj_row, adj_col, indx_adj_row, indx_adj_col, pawnCounterInDiagonal, increaseIndex);
 
         }
         return pawnCounterInDiagonal == 4;
     }
+    //Metodo che ritorna il numero di pedina in riga sulla diagonale
+    private int getPawnCounterInDiagonal(int adj_row, int adj_col, int indx_adj_row, int indx_adj_col, int pawnCounterInDiagonal, int increaseIndex) {
+        while(matr.checkPositionValidity(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
+                && checkColor(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
+                && pawnCounterInDiagonal<4 ) {
+            increaseIndex++;
+            pawnCounterInDiagonal++;
+
+        }
+        return pawnCounterInDiagonal;
+    }
 
 
-    //Utilizza parametri matriciali quindi la prima posizione è [0,0]
+    //Metodo che determina se la posizione analizzata contiene
+    // una pedina che appartiene al giocatore corrente
     private boolean checkColor(int row, int col) {
         if(matr.checkPositionValidity(row, col)) {
             Disk D=matr.getElem(row, col);
@@ -211,7 +208,6 @@ public class InteractiveMatch implements Match {
                 int id=D.getPlayer();
 
                 return id == current_player.getId();
-
             }
         }
         return false;
@@ -244,7 +240,7 @@ public class InteractiveMatch implements Match {
     }
 
 
-    //metodo relativo al cambio di turno
+    //Metodo relativo al cambio di turno
     public void updateCurrentPlayer() {
         if(current_player.equals(p1)){
             current_player=p2;

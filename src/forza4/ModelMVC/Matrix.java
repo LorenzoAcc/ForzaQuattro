@@ -1,19 +1,24 @@
+/*
+Created by L. Acciarri
+and D. Rosati
+ */
 package forza4.ModelMVC;
 
 public class Matrix {
-        // Fields
+
         private static final int DEFAULT_COL = 7;
         private static final int DEFAULT_ROW = 6;
         private int NUM_DISK = 0;
 
-        //Creazione matrice
+        //Dichiarazione matrice
         public final Disk[][] field;
 
         public Matrix(){
+
             this.field = new Disk[DEFAULT_ROW][DEFAULT_COL];
         }
 
-        //inserimeto del disco nella colonna
+        //Metodo relativo all'inserimento di un disco in una determinata colonna
         public int insertDisk(Disk d, int col) {
             int rowIndex ;
             rowIndex = this.checkInsertion(col);
@@ -25,8 +30,7 @@ public class Matrix {
             return DEFAULT_ROW;
         }
 
-        //Metodo che scorre la matrice dall'alto verso il basso relativamente ad una colonna
-        //per cercare la prima casella occupata
+        //Metodo che determina la prima posizione occupata nella colonna
         private int checkInsertion(int col) {
             for(int r = 0; r < DEFAULT_ROW; r++) {
                 //L'if non ritorna r-1 nel caso in la colonna è piena → ritorna DEFAULT_ROW
@@ -38,7 +42,7 @@ public class Matrix {
         }
 
 
-        //Metodo che controlla le coordinate
+        //Metodo che controlla la validità coordinate
         public boolean checkPositionValidity(int row, int col) {
             if(row>-1 && row<6 && col>-1 && col<7)  return true;
             return false;

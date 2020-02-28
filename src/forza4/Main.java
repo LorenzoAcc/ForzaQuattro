@@ -1,3 +1,7 @@
+/*
+Created by L.Acciarri
+and D. Rosati
+ */
 package forza4;
 
 import forza4.ViewMVC.StartingPage;

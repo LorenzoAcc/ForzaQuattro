@@ -1,5 +1,8 @@
+/*
+Created by L.Acciarri
+and D. Rosati
+ */
 package forza4.ViewMVC;
-
 
 import forza4.ControllerMVC.Controller;
 import forza4.ModelMVC.*;
@@ -91,23 +94,17 @@ public class Game {
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                 }
-
                 else if (d.getPlayer()==1){
-
                         ImageIcon icon = new ImageIcon("src/forza4/ViewMVC/images/red.png");
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                         lab.setVisible(true);
-
                 }
                 else{
-
                         ImageIcon icon = new ImageIcon("src/forza4/ViewMVC/images/yellow.png");
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                         lab.setVisible(true);
-
-
                 }
             }
         }
@@ -122,6 +119,7 @@ public class Game {
         else
             TextP.setText("                             Turn → COMPUTER PLAYER");
     }
+
 
     private void updatePanel(){
         gamePage.removeAll();
@@ -139,9 +137,8 @@ public class Game {
         btn[6].addActionListener(e->onClick(6));
     }
 
-
+    //Indica che è stata richiesta una mossa sulla colonna
     private void onClick( int col){
-
         //Intero che descrive la mossa fatta
         int moveMade = controller.move(match,col);
         updateGamePage();
@@ -161,11 +158,8 @@ public class Game {
 
             }
         }
-
-
-
-
     }
+    //Mostra possibili notifiche quali colonna piena, etc.
     private void showAllert(int moveMade){
         switch (moveMade){
             //indica che la mossa è stata effettuata ma non è rilevante
@@ -178,20 +172,18 @@ public class Game {
                 break;
         }
     }
-
+    //Responsabile dell'aggiornamento della griglia
     private void updateGamePage(){
-
         updatePanel();
         TurnSetterText();
         Full();
-
     }
-
-
+    //Informa se la partita è finita in parità
     private void Full(){
         if(match.isFull())
             winFrame("PATTA");
     }
+    //Informa se c'è stata una vittoria
     private void winFrame(String str){
         JOptionPane.showMessageDialog(null, str);
         //frame.enable(false);
