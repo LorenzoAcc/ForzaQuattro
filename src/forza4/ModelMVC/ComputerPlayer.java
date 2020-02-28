@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ModelMVC;
 
 import java.util.Random;
 
@@ -16,6 +16,7 @@ public class ComputerPlayer implements Player {
 
     @Override
     public String getName() {
+
         return name;
     }
 
@@ -24,7 +25,6 @@ public class ComputerPlayer implements Player {
         this.name=name;
     }
 
-    @Override
     public int move() {
         Random rand = new Random();
         return rand.nextInt(7);

@@ -1,9 +1,6 @@
 package forza4;
 
-import forza4.StartingPage;
-
-import javax.swing.*;
-import java.awt.*;
+import forza4.ViewMVC.StartingPage;
 
 public class Main {
     public static void main(String[] args){

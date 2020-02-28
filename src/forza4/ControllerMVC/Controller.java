@@ -1,4 +1,7 @@
-package forza4;
+package forza4.ControllerMVC;
+
+import forza4.ModelMVC.ComputerPlayer;
+import forza4.ModelMVC.InteractiveMatch;
 
 public class Controller {
     private InteractiveMatch match;
@@ -13,6 +16,7 @@ public class Controller {
         if(match.checkWin(row , col)) return 1;
         return -1;
     }
+
 
     public boolean computerMove(InteractiveMatch match, ComputerPlayer computerPlayer){
 

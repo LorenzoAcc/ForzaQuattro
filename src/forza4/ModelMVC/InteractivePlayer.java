@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ModelMVC;
 
 public class InteractivePlayer implements Player {
     //Fields
@@ -29,7 +29,7 @@ public class InteractivePlayer implements Player {
 
     @Override
     public int move() {
-        // TODO Auto-generated method stub
         return 0;
     }
+
 }

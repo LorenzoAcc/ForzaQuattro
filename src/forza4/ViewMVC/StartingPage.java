@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ViewMVC;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

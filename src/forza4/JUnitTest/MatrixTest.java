@@ -1,7 +1,7 @@
 package forza4.JUnitTest;
 
-import forza4.Disk;
-import forza4.Matrix;
+import forza4.ModelMVC.Disk;
+import forza4.ModelMVC.Matrix;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

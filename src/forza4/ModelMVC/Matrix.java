@@ -1,6 +1,4 @@
-package forza4;
-
-import forza4.Disk;
+package forza4.ModelMVC;
 
 public class Matrix {
         // Fields

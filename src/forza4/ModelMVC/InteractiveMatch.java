@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ModelMVC;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -35,8 +35,8 @@ public class InteractiveMatch implements Match {
 
         HashMap<Integer, int[]> adj_pos = adjacentPositionsChecker(ACTUAL_ROW,ACTUAL_COLUMN);
         // incapsulo il risultato del controllo della mossa vincente nella variabile responce → se è true allora la partita è finita
-        int responce = checkLines(adj_pos); //1 se c'è una mossa vincente
-        return responce != 0;
+        if(getAdiacentPositionWin(adj_pos)) return true;
+        return false;
     }
 
     //Quando richiamiamo la funzione il parametro row è checkInsertion(col)
@@ -76,8 +76,7 @@ public class InteractiveMatch implements Match {
 
 
     //metodo che controla se le pos. adj della
-    private int checkLines(HashMap<Integer, int[]> adj_pos) {
-        int win = 0 ;
+    private boolean getAdiacentPositionWin(HashMap<Integer, int[]> adj_pos) {
         //scorro l'hashmap, k che è la chiave corrisponde all'indice della colonna
         // quindi va da 1 a 6
         for(int k = 0; k<6; k++) {
@@ -90,13 +89,13 @@ public class InteractiveMatch implements Match {
                 // l'array relativo ad una chiave può essere lungo massimo 3.. Perche la matrice di adiacenza può avere massimo tre colonne
                 //L'array non può essere vuoto in quanto si presuppone che se viene controllato abbia almeno un elemento
                 for(int v=0; v!=pos_in_the_row.length;v++) {
-                    if(checkLineFromAdjacentPosition(k,pos_in_the_row[v]))
-                        win = current_player.getId();
+                    if(checkLineFromAdjacentPosition(k,pos_in_the_row[v])) return true;
 
                 }
             }
         }
-        return win;
+
+        return false;
     }
 
     private boolean checkLineFromAdjacentPosition(int row_adj, int col_adj) {
@@ -104,7 +103,6 @@ public class InteractiveMatch implements Match {
         //pedina adiacente con quella inserita
 
         //Indici della posizione della pedina adiacente presi come -1/0/+1
-        //boolean answer = false;
         if(col_adj==ACTUAL_COLUMN) return checkColumn(row_adj,col_adj);
 
         if(row_adj==ACTUAL_ROW) return  checkRow(row_adj,col_adj);
@@ -143,10 +141,6 @@ public class InteractiveMatch implements Match {
 
             increaseIndex++;
             pawnCounterInRow++;
-
-
-
-
         }
         if(pawnCounterInRow==4) {
             return true;
@@ -171,7 +165,7 @@ public class InteractiveMatch implements Match {
         int increaseIndex = 1;
         int pawnCounterInDiagonal=2;
 
-        //Indici della posizione della pedina adiacente presi come -1/0/+1
+        //Indici della posizione della pedina adiacente presi come -1/+1
         int indx_adj_row = adj_row - ACTUAL_ROW ;
         int indx_adj_col = adj_col - ACTUAL_COLUMN ;
 
@@ -192,7 +186,7 @@ public class InteractiveMatch implements Match {
             //cambio il verso del controllo
             indx_adj_row = indx_adj_row*-1;
             indx_adj_col = indx_adj_col*-1;
-            while(matr.checkPositionValidity(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
+            while(matr.checkPositionValidity(adj_row +(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
                     && checkColor(adj_row+(increaseIndex*indx_adj_row),adj_col+(increaseIndex*indx_adj_col))
                     && pawnCounterInDiagonal<4 ) {
                 increaseIndex++;

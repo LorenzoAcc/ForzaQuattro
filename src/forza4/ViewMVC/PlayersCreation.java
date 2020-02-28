@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ViewMVC;
 
 import javax.swing.*;
 import java.awt.*;

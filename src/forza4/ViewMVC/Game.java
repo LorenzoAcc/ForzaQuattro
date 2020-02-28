@@ -1,5 +1,8 @@
-package forza4;
+package forza4.ViewMVC;
 
+
+import forza4.ControllerMVC.Controller;
+import forza4.ModelMVC.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,14 +87,14 @@ public class Game {
             for(int k = 0 ; k < 7 ; k++){
                 Disk d = matr.getElem(i,k);
                 if(d==null){
-                        ImageIcon icon = new ImageIcon("src/forza4/images/null.png");
+                        ImageIcon icon = new ImageIcon("src/forza4/ViewMVC/images/null.png");
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                 }
 
                 else if (d.getPlayer()==1){
 
-                        ImageIcon icon = new ImageIcon("src/forza4/images/red.png");
+                        ImageIcon icon = new ImageIcon("src/forza4/ViewMVC/images/red.png");
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                         lab.setVisible(true);
@@ -99,7 +102,7 @@ public class Game {
                 }
                 else{
 
-                        ImageIcon icon = new ImageIcon("src/forza4/images/yellow.png");
+                        ImageIcon icon = new ImageIcon("src/forza4/ViewMVC/images/yellow.png");
                         JLabel lab = new JLabel(icon,JLabel.CENTER);
                         gamePage.add(lab);
                         lab.setVisible(true);
@@ -165,6 +168,7 @@ public class Game {
     }
     private void showAllert(int moveMade){
         switch (moveMade){
+            //indica che la mossa è stata effettuata ma non è rilevante
             case -1: break;
             case 0:
                 JOptionPane.showMessageDialog(null, "ATTENZIONE LA COLONNA SELEZIONATA E' PIENA.. ESEGUIRE UN'ALTRA MOSSA");

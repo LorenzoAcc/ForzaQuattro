@@ -1,4 +1,6 @@
-package forza4;
+package forza4.ViewMVC;
+
+import forza4.ModelMVC.InteractiveMatch;
 
 import javax.swing.*;
 import java.awt.*;

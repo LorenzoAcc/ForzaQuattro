@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ModelMVC;
 
 public class Disk {
     private final int id_player;

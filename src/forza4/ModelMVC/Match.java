@@ -1,4 +1,4 @@
-package forza4;
+package forza4.ModelMVC;
 
 public interface Match {
     int getIns(int col) throws Exception;
